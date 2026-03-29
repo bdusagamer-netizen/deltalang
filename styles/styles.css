@@ -1,16 +1,17 @@
+/* Core Styling */
 * {
     box-sizing: border-box;
 }
 
 body {
-    background-color: #2b2b2b;
+    background-color: #2b2b2b; /* Slightly darker than nav */
     font-family: 'Verdana', sans-serif;
-    color: #F8F8FF;
+    color: #F8F8FF; /* GhostWhite */
     margin: 0;
     line-height: 1.6;
 }
 
-/* NAVIGATION */
+/* Navigation Bar */
 nav {
     position: fixed;
     top: 0;
@@ -19,78 +20,100 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 15px 40px;
-    background-color: #333333;
+    background-color: #333333; /* Nav background */
     z-index: 1000;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-weight: bold;
-    font-size: 1.2rem;
+    gap: 12px;
+}
+
+.logo-text {
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 500;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
 }
 
 .nav-links {
     display: flex;
-    gap: 12px;
+    gap: 15px;
 }
 
-/* BUTTONS */
+/* Button & Link Base Styling */
 nav a, .btn-primary, .btn-secondary {
     text-decoration: none;
-    font-size: 100%;
-    padding: 10px 22px;
-    border-radius: 10px;
+    color: #F8F8FF; /* GhostWhite */
     background-color: #228B22; /* Forest Green */
-    color: #F8F8FF;
+    padding: 10px 22px;
+    border-radius: 12px; /* Soft edges */
     border: 2px solid transparent;
-    display: inline-block;
+    font-size: 100%;
     transition: background-color 0.3s ease, transform 0.1s ease;
+    display: inline-block;
     cursor: pointer;
 }
 
+/* Hover Effect: Lighter box with soft edges */
 nav a:hover, .btn-primary:hover, .btn-secondary:hover {
     background-color: rgba(255, 255, 255, 0.2); 
     color: #ffffff;
 }
 
+/* Click Bounce Animation */
 nav a:active, .btn-primary:active, .btn-secondary:active {
-    transform: scale(0.92); /* The click bounce */
+    transform: scale(0.94);
 }
 
-/* HERO SECTION */
+/* Hero Section */
 .hero {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 150px 20px 80px;
-    max-width: 900px;
+    padding: 160px 20px 80px;
+    max-width: 1100px;
     margin: 0 auto;
     text-align: center;
 }
 
-.hero h1 { font-size: 3rem; margin-bottom: 10px; }
-.hero p { font-size: 1.2rem; color: #cccccc; margin-bottom: 40px; }
+.hero h1 {
+    font-size: 3.2rem;
+    margin-bottom: 20px;
+}
 
-/* CODE EDITOR WINDOW */
+.hero-desc {
+    font-size: 1.25rem;
+    color: #cccccc;
+    margin-bottom: 50px;
+    /* This allows the \n in your HTML to create actual line breaks */
+    white-space: pre-line;
+}
+
+/* Code Editor Window */
 .code-window {
     background-color: #1e1e1e;
     border-radius: 12px;
     width: 100%;
-    max-width: 650px;
+    max-width: 720px;
     text-align: left;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    margin-bottom: 40px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    margin-bottom: 45px;
     overflow: hidden;
     border: 1px solid #444;
 }
 
 .code-header {
     background-color: #333;
-    padding: 10px 15px;
+    padding: 12px 18px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+
+.window-dots {
+    display: flex;
     gap: 8px;
 }
 
@@ -98,22 +121,34 @@ nav a:active, .btn-primary:active, .btn-secondary:active {
 .red { background: #ff5f56; }
 .yellow { background: #ffbd2e; }
 .green { background: #27c93f; }
-.file-name { margin-left: 10px; font-size: 0.8rem; color: #888; font-family: sans-serif; }
+
+.file-name {
+    font-size: 0.85rem;
+    color: #888;
+    font-family: 'Roboto Mono', monospace;
+}
 
 code {
     display: block;
-    padding: 25px;
-    font-family: 'Consolas', 'Monaco', monospace;
+    padding: 30px;
+    font-family: 'Roboto Mono', monospace;
     color: #d4d4d4;
-    font-size: 0.95rem;
-    white-space: pre;
+    font-size: 1rem;
+    overflow-x: auto;
 }
 
-/* Syntax Highlighting for Delta */
-.keyword { color: #C586C0; font-weight: bold; } /* var, cli-printout */
-.func { color: #DCDCAA; }                       /* math, random, cli */
-.string { color: #CE9178; }                     /* "The problem is" */
+/* Delta Syntax Highlighting */
+.keyword { color: #C586C0; font-weight: bold; }
+.func { color: #DCDCAA; }
+.string { color: #CE9178; }
 
-.hero-actions { display: flex; gap: 20px; }
-.btn-secondary { background-color: transparent; border: 2px solid #228B22; }
+/* Hero Action Buttons */
+.hero-actions {
+    display: flex;
+    gap: 25px;
+}
 
+.btn-secondary {
+    background-color: transparent;
+    border: 2px solid #228B22; /* Forest Green Border */
+}
