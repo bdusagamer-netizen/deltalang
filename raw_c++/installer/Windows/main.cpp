@@ -20,7 +20,6 @@ bool SetRegistryValue(HKEY hKeyParent, LPCSTR subKey, LPCSTR valueName, LPCSTR d
 }
 
 int main() {
-    // 1. Define Paths
     std::string installDir = "C:\\Program Files\\Delta";
     std::string exeName = "delta.exe";
     std::string fullExePath = installDir + "\\" + exeName;
@@ -28,12 +27,10 @@ int main() {
     std::cout << "--- Delta Language Installer ---" << std::endl;
 
     try {
-        // 2. Create Directory and Copy Executable
         if (!fs::exists(installDir)) {
             fs::create_directories(installDir);
         }
 
-        // Assuming delta.exe is in the same folder as this installer
         if (fs::exists(exeName)) {
             fs::copy_file(exeName, fullExePath, fs::copy_options::overwrite_existing);
             std::cout << "[+] Copied delta.exe to " << installDir << std::endl;
@@ -42,16 +39,12 @@ int main() {
             return 1;
         }
 
-        // 3. Setup File Association (.delta)
-        // Set .delta to point to a ProgID
         SetRegistryValue(HKEY_CLASSES_ROOT, ".delta", "", "Delta.File");
-        // Set the command to execute when a .delta file is opened
         std::string command = "\"" + fullExePath + "\" \"%1\"";
         SetRegistryValue(HKEY_CLASSES_ROOT, "Delta.File\\shell\\open\\command", "", command.c_str());
         
         std::cout << "[+] Registered .delta file association." << std::endl;
 
-        // 4. Add to PATH (User Environment)
         HKEY hKey;
         if (RegOpenKeyExA(HKEY_CURRENT_USER, "Environment", 0, KEY_READ | KEY_WRITE, &hKey) == ERROR_SUCCESS) {
             char oldPath[4096];
@@ -61,8 +54,6 @@ int main() {
                 if (newPath.find(installDir) == std::string::npos) {
                     newPath += ";" + installDir;
                     RegSetValueExA(hKey, "Path", 0, REG_EXPAND_SZ, (const BYTE*)newPath.c_str(), newPath.length() + 1);
-                    
-                    // Notify system that environment variables changed
                     SendMessageTimeoutA(HWND_BROADCAST, WM_SETTINGCHANGE, 0, (LPARAM)"Environment", SMTO_ABORTIFHUNG, 5000, NULL);
                     std::cout << "[+] Added Delta to PATH." << std::endl;
                 } else {
